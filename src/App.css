@@ -1,0 +1,13 @@
+.container-background {
+  position: relative;
+  background-image: url('https://via.placeholder.com/200');
+  /* URL de tu imagen */
+  background-size: cover;
+  background-position: bottom right;
+  height: 100vh;
+  /* O ajusta al tamaño necesario */
+}
+
+body {
+  background-image: url('https://via.placeholder.com/200');
+}
