@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ProgressBar } from 'react-bootstrap';
 import { FaArrowLeft, FaArrowRight, FaCheckCircle, FaLaptop } from 'react-icons/fa'; // Iconos para navegación y opciones
+import { useNavigate } from 'react-router-dom';
 
 const questions = [
    // Sección 1: Uso Principal de la Computadora
@@ -99,6 +100,7 @@ const questions = [
 ];
 
 const QuestionScreen = ({ nextStep, prevStep, handleAnswer }) => {
+   const navigate = useNavigate();
    const [currentQuestion, setCurrentQuestion] = useState(0);
    const question = questions[currentQuestion];
    const progress = ((currentQuestion + 1) / questions.length) * 100;
@@ -140,7 +142,7 @@ const QuestionScreen = ({ nextStep, prevStep, handleAnswer }) => {
                   Siguiente <FaArrowRight />
                </button>
             ) : (
-               <button className="btn btn-success" onClick={nextStep}>
+               <button className="btn btn-success" onClick={() => navigate('/results')}>
                   Ver Resultados
                </button>
             )}

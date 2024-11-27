@@ -1,4 +1,5 @@
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 const recommendations = [
    {
@@ -54,6 +55,7 @@ const recommendations = [
 ];
 
 const ResultScreen = ({ answers, restartQuiz }) => {
+   const navigate = useNavigate();
    return (
       <>
          <div className="mt-5"
@@ -91,7 +93,7 @@ const ResultScreen = ({ answers, restartQuiz }) => {
                ))}
             </Row>
             <div className="text-center mt-4">
-               <Button variant="outline-secondary" onClick={restartQuiz} className="px-4 py-2">
+               <Button variant="outline-secondary" onClick={() => navigate('/')} className="px-4 py-2">
                   Volver a empezar
                </Button>
             </div>

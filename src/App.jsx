@@ -1,16 +1,13 @@
 import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import WelcomeScreen from './components/WelcomeScreen';
 import QuestionScreen from './components/QuestionScreen';
 import ResultScreen from './components/ResultScreen';
+import InventoryScreen from './components/InventoryScreen'; // Nuevo componente
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  const [step, setStep] = useState(1); // Controla la etapa de la aplicación
   const [answers, setAnswers] = useState({}); // Almacena las respuestas del usuario
-
-  // Función para avanzar al siguiente paso
-  const nextStep = () => setStep(step + 1);
-  const prevStep = () => setStep(step - 1);
 
   // Función para manejar respuestas
   const handleAnswer = (question, answer) => {
@@ -19,22 +16,31 @@ function App() {
 
   // Función para reiniciar el cuestionario
   const restartQuiz = () => {
-    setStep(1);
     setAnswers({});
   };
 
   return (
-    <div className="App">
-      {step === 1 && <WelcomeScreen nextStep={nextStep} />}
-      {step === 2 && (
-        <QuestionScreen
-          nextStep={nextStep}
-          prevStep={prevStep}
-          handleAnswer={handleAnswer}
+    <Router>
+      <Routes>
+        {/* Pantalla de bienvenida */}
+        <Route path="/" element={<WelcomeScreen />} />
+
+        {/* Pantalla de preguntas */}
+        <Route
+          path="/quiz"
+          element={<QuestionScreen handleAnswer={handleAnswer} />}
         />
-      )}
-      {step === 3 && <ResultScreen answers={answers} restartQuiz={restartQuiz} />}
-    </div>
+
+        {/* Pantalla de resultados */}
+        <Route
+          path="/results"
+          element={<ResultScreen answers={answers} restartQuiz={restartQuiz} />}
+        />
+
+        {/* Pantalla de inventario */}
+        <Route path="/inventory" element={<InventoryScreen />} />
+      </Routes>
+    </Router>
   );
 }
 
